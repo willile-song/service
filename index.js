@@ -1,7 +1,7 @@
 const http = require("http");
 const axios = require('axios');
 
-const hostname = "hostname";
+const hostname = "localhost";
 
 const url = 'http://rap2api.taobao.org/app/mock/245055/react/project/data';
 
