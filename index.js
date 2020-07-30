@@ -1,19 +1,28 @@
 const http = require("http");
-const axios = require('axios');
+
+const fs = require('fs');
+
+const url = require('url');
+
+const querystring = require("querystring");
 
 const hostname = "localhost";
-
-const url = 'http://rap2api.taobao.org/app/mock/245055/react/project/data';
 
 const part = 80;
 
 const service = http.createServer((req, res) => {
-    res.setHeader("Content-Type", "text/plain");
+    const method = req.method.toLowerCase();
+    res.setHeader("Content-Type", "text/html");
     res.statusCode = 200;
-    axios.get(url).then(resp => {
-        console.log(resp.data.data)
-    })
-    res.end("hello world!");
+    if(method == "get") {
+        let data = fs.readFileSync("./index.html");
+        res.write(data)
+    }else if(method == "post") {
+        res.on('data', data => {
+            console.log(data.toString())
+        })
+    }
+    res.end();
 })
 
 service.listen(part, () => {
